@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <meta name="version" content="v2.1.1">
+    <meta name="version" content="v2.1.2">
     <title>白求恩雕像虚拟馆 | 全球传承谱系</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -141,14 +141,20 @@
             .section-title { font-size: 1.5rem; }
             .section { padding: 40px 0; }
         }
+        /* Hero 区域：电脑端左右，手机端上下 */
         .hero-wrapper {
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
             align-items: center;
         }
-        .hero-image { flex: 0.8; text-align: center; }
-        .hero-text { flex: 1.5; }
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        .hero-text {
+            flex: 1;
+        }
         .hero-img-container {
             background: #e2d4c6;
             border-radius: 48px;
@@ -165,21 +171,25 @@
             font-size: 0.85rem;
             color: #7a5a48;
         }
-        @media (max-width: 640px) {
-            .hero-image { flex: 1; }
-            .hero-text { flex: 1; }
-        }
         .hero-text h1 {
             font-size: 2.5rem;
             font-weight: 800;
             color: #392d24;
         }
-        @media (max-width: 640px) {
-            .hero-text h1 { font-size: 1.8rem; }
-        }
         .hero-text p {
             margin-bottom: 20px;
             line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            .hero-wrapper {
+                flex-direction: column;
+            }
+            .hero-image, .hero-text {
+                width: 100%;
+            }
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
         }
 
         /* 新雕像独立区域 */
@@ -271,7 +281,7 @@
             .featured-info h3 { font-size: 1.5rem; }
         }
 
-        /* 时间轴 - 圆点位于年份正上方 */
+        /* 时间轴样式 */
         .timeline {
             position: relative;
             max-width: 1000px;
@@ -411,7 +421,7 @@
             }
         }
 
-        /* 捐赠表格样式 */
+        /* 捐赠表格 */
         .donation-table {
             background: #fffbf0;
             border-radius: 28px;
@@ -478,6 +488,7 @@
             .spirit-card h3 { font-size: 1.2rem; }
         }
 
+        /* 文创产品 */
         .product-row {
             display: flex;
             flex-wrap: wrap;
@@ -561,7 +572,7 @@
 </header>
 
 <main>
-    <!-- Hero 区域：恢复完整文字，不再显示右侧小字 -->
+    <!-- Hero 区域：手机上下结构，电脑左右结构 -->
     <section id="home" style="padding: 40px 0 50px; background: linear-gradient(130deg,#fdf7ef,#f5ede2);">
         <div class="container">
             <div class="hero-wrapper">
@@ -707,7 +718,7 @@
         </div>
     </section>
 
-    <!-- 校友捐赠：表格结构修正 -->
+    <!-- 校友捐赠 -->
     <section id="donation" class="section">
         <div class="container">
             <h2 class="section-title">🤝 全球校友捐赠名录</h2>
@@ -718,17 +729,17 @@
                         <tr><th>捐赠方/校友组织</th><th>金额 (RMB)</th><th>寄语</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>北美吉大校友总会 (多伦多分会)</td><td>***</td><td>铭记白求恩国际主义</td></tr>
-                        <tr><td>加拿大白求恩医学发展基金会</td><td>***</td><td>加中友谊永存</td></tr>
-                        <tr><td>北京协和医学院吉大学子</td><td>***</td><td>传承无私奉献</td></tr>
-                        <tr><td>吉林省校友企业家联谊会</td><td>***</td><td>鼎力新雕像工程</td></tr>
-                        <tr><td>上海校友会医学分会</td><td>***</td><td>致敬白求恩精神</td></tr>
-                        <tr><td>澳大利亚吉大校友会</td><td>***</td><td>南半球爱心汇聚</td></tr>
-                        <tr><td>深圳校友会 · 白求恩专项基金</td><td>***</td><td>支持汉白玉雕塑</td></tr>
-                        <tr><td>李光耀医学基金 (匿名)</td><td>***</td><td>弘扬仁心仁术</td></tr>
-                        <tr><td>吉林大学白求恩医学部79级全体</td><td>***</td><td>永远怀念</td></tr>
-                        <tr><td>美国加州校友会</td><td>***</td><td>携手共铸丰碑</td></tr>
-                        <tr><td>其他个人及团体 (1356笔)</td><td>***</td><td>涓滴成海</td></tr>
+                        <tr><td>北美吉大校友总会 (多伦多分会)</td><td>***</span></td><td>铭记白求恩国际主义</span></tr>
+                        <tr><td colspan="2">加拿大白求恩医学发展基金会</td><td>***</span></td><td>加中友谊永存</span></tr>
+                        <tr><td colspan="2">北京协和医学院吉大学子</td><td>***</span></td><td>传承无私奉献</span></tr>
+                        <tr><td colspan="2">吉林省校友企业家联谊会</td><td>***</span></td><td>鼎力新雕像工程</span></tr>
+                        <tr><td colspan="2">上海校友会医学分会</td><td>***</span></td><td>致敬白求恩精神</span></tr>
+                        <tr><td colspan="2">澳大利亚吉大校友会</td><td>***</span></td><td>南半球爱心汇聚</span></tr>
+                        <tr><td colspan="2">深圳校友会 · 白求恩专项基金</td><td>***</span></td><td>支持汉白玉雕塑</span></tr>
+                        <tr><td colspan="2">李光耀医学基金 (匿名)</td><td>***</span></td><td>弘扬仁心仁术</span></tr>
+                        <tr><td colspan="2">吉林大学白求恩医学部79级全体</td><td>***</span></td><td>永远怀念</span></tr>
+                        <tr><td colspan="2">美国加州校友会</td><td>***</span></td><td>携手共铸丰碑</span></tr>
+                        <tr><td colspan="2">其他个人及团体 (1356笔)</td><td>***</span></td><td>涓滴成海</span></tr>
                     </tbody>
                 </table>
                 <div class="donation-note">⚠️ 以上捐赠数据均为虚拟示意，金额已做遮蔽处理。</div>
@@ -800,7 +811,7 @@
             <div><a href="#global-heritage" style="color:#d9c2b0;">全球传承谱系</a> | <a href="#donation" style="color:#d9c2b0;">捐赠名录</a> | <a href="#cultural-creative" style="color:#d9c2b0;">3D打印文创</a></div>
             <div><i class="fas fa-envelope"></i> bethune_virtual@jlu.edu.cn</div>
         </div>
-        <div class="version">版本 v2.1.1 · 文件生成时间：2026年6月13日</div>
+        <div class="version">版本 v2.1.2 · 文件生成时间：2026年6月13日</div>
         <div class="author-info">网站作者：zhanghoffin</div>
         <div style="margin-top:16px; text-align:center; border-top:1px solid #514436; padding-top:20px; font-size:0.75rem;">
             💙 国际主义精神永存 · 全球校友共筑丰碑 · © 2025 数字虚拟纪念馆
