@@ -24,7 +24,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* 手机端缩小左右内边距 */
         @media (max-width: 640px) {
             .container {
                 padding: 0 16px;
@@ -42,9 +41,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
+            padding: 12px 0;
             flex-wrap: wrap;
-            gap: 12px;
+            position: relative;
         }
         .logo {
             font-size: 1.3rem;
@@ -55,19 +54,78 @@
             color: transparent;
         }
         .logo span { font-weight: 400; color: #7a5a48; background: none; font-size: 0.9rem; }
+
+        /* 桌面端导航样式 */
         .nav-links {
             display: flex;
-            gap: 16px;
+            gap: 24px;
             list-style: none;
-            flex-wrap: wrap;
+            align-items: center;
         }
         .nav-links a {
             text-decoration: none;
             font-weight: 500;
             color: #3b2c24;
             transition: 0.2s;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
+        .nav-links a:hover, .nav-links a.active {
+            color: #b23c1c;
+            border-bottom: 2px solid #b23c1c;
+            padding-bottom: 4px;
+        }
+
+        /* 汉堡按钮（默认隐藏） */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #b23c1c;
+            padding: 4px 8px;
+        }
+
+        /* 手机端样式 */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: rgba(255,252,245,0.98);
+                backdrop-filter: blur(10px);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 16px 20px;
+                border-radius: 0 0 24px 24px;
+                box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+                z-index: 99;
+                gap: 16px;
+                border-top: 1px solid #e9e0d0;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            .nav-links a {
+                display: block;
+                padding: 8px 0;
+                font-size: 1rem;
+            }
+            /* 按钮也跟随调整 */
+            .navbar .btn-outline {
+                margin-left: auto;
+                margin-right: 12px;
+            }
+        }
+
         .btn {
             display: inline-block;
             background-color: #b23c1c;
@@ -196,7 +254,6 @@
             display: block;
             margin: 0 auto;
         }
-        /* 手机端图片容器调整 */
         @media (max-width: 640px) {
             .hero-img-container img {
                 max-width: 85%;
@@ -235,7 +292,9 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">白求恩雕像<span> · 国际主义虚拟馆</span></div>
-            <ul class="nav-links">
+            <!-- 汉堡按钮 -->
+            <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">首页</a></li>
                 <li><a href="#statues">雕像全景</a></li>
                 <li><a href="#donation">校友捐赠</a></li>
@@ -418,20 +477,26 @@
 </footer>
 
 <script>
-    document.querySelectorAll('.nav-links a, .btn[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            let href = this.getAttribute('href');
-            if(href && href.startsWith('#')) {
-                e.preventDefault();
-                let target = href.substring(1);
-                let element = document.getElementById(target);
-                if(element) element.scrollIntoView({ behavior: 'smooth' });
-            }
+    // 汉堡菜单交互
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('show');
         });
-    });
+
+        // 点击菜单项后自动关闭菜单（提升移动体验）
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('show');
+            });
+        });
+    }
+
     // 高亮当前导航
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navLinkItems = document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll', () => {
         let current = '';
         const scrollPos = window.scrollY + 100;
@@ -439,7 +504,7 @@
             const top = section.offsetTop, height = section.clientHeight;
             if(scrollPos >= top && scrollPos < top + height) current = section.getAttribute('id');
         });
-        navLinks.forEach(link => {
+        navLinkItems.forEach(link => {
             link.classList.remove('active');
             if(link.getAttribute('href') === `#${current}`) link.classList.add('active');
         });
