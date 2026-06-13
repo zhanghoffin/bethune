@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>白求恩雕像虚拟馆 | 全球校友捐赠·精神丰碑</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefbf6;
+            color: #1e2a2e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        header {
+            background: rgba(255,252,245,0.96);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e9e0d0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #9e2a2b, #c44536);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .logo span { font-weight: 400; color: #7a5a48; background: none; }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #3b2c24;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #b23c1c;
+            border-bottom: 2px solid #b23c1c;
+            padding-bottom: 4px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #b23c1c;
+            color: white;
+            padding: 8px 22px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.25s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .btn:hover {
+            background-color: #8f2e12;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #b23c1c;
+            color: #b23c1c;
+        }
+        .btn-outline:hover {
+            background: #b23c1c;
+            color: white;
+        }
+        .section {
+            padding: 70px 0;
+            border-bottom: 1px solid #ede3d5;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+            color: #2c3e2f;
+            letter-spacing: -0.3px;
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #c0693c;
+            margin: 14px auto 0;
+            border-radius: 4px;
+        }
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            flex: 1 1 280px;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.04);
+            border: 1px solid #efe2d4;
+            transition: all 0.2s;
+        }
+        .donation-table {
+            background: #fffbf0;
+            border-radius: 36px;
+            padding: 24px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .donation-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .donation-table th, .donation-table td {
+            padding: 14px 10px;
+            text-align: left;
+            border-bottom: 1px solid #e5d5c6;
+        }
+        .donation-table th {
+            background: #e7d9ce;
+            font-weight: 700;
+        }
+        .quote-box {
+            background: #efe5db;
+            border-radius: 48px;
+            padding: 36px 32px;
+            margin: 30px 0;
+            text-align: center;
+            font-style: italic;
+        }
+        .product-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            justify-content: center;
+        }
+        .product-card {
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            width: 260px;
+            text-align: center;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+        .badge {
+            background: #decfbf;
+            padding: 4px 12px;
+            border-radius: 80px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        footer {
+            background: #2b241f;
+            color: #d9cdbf;
+            padding: 48px 0 24px;
+        }
+        .footer-links a { color: #d9c2b0; text-decoration: none; margin-right: 20px; }
+        .hero-img-container {
+            background: #e2d4c6;
+            border-radius: 48px;
+            padding: 16px;
+            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.2);
+        }
+        .hero-img-container i {
+            font-size: 8rem;
+            color: #8b5a3c;
+        }
+        @media (max-width: 780px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .section-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">白求恩雕像<span> · 国际主义虚拟馆</span></div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">首页</a></li>
+                <li><a href="#statues">雕像全景</a></li>
+                <li><a href="#donation">校友捐赠</a></li>
+                <li><a href="#bethune-spirit">白求恩精神</a></li>
+                <li><a href="#cultural-creative">文创·3D打印</a></li>
+                <li><a href="#virtual-hall">虚拟馆&实体馆</a></li>
+            </ul>
+            <a href="#donation" class="btn btn-outline">致敬捐赠人</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero 区域 - 使用图标代替图片，避免文件依赖 -->
+    <section id="home" style="padding: 40px 0 50px; background: linear-gradient(130deg,#fdf7ef,#f5ede2);">
+        <div class="container">
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                <div style="flex:1; text-align: center;">
+                    <div class="hero-img-container">
+                        <i class="fas fa-landmark"></i>
+                        <p style="margin-top: 12px; font-size:0.85rem; color:#7a5a48;"><i class="fas fa-camera"></i> 诺尔曼·白求恩大夫 · Dr. Norman Bethune (1890–1939)</p>
+                    </div>
+                </div>
+                <div style="flex:1.5;">
+                    <h1 style="font-size: 3rem; font-weight: 800; color:#392d24;">诺尔曼·白求恩<br>全球校友精神丰碑</h1>
+                    <p style="font-size: 1.1rem; margin: 20px 0;">白求恩，全名亨利·诺尔曼·白求恩（Henry Norman Bethune，1890年3月4日—1939年11月12日），加拿大共产党员，国际主义战士，著名胸外科医师。1890年出生于加拿大安大略省格雷文赫斯特镇，1935年加入加拿大共产党，1938年来到中国参与抗日革命。因手术中被细菌感染转为败血症，1939年11月12日凌晨逝世。他在中国工作的一年半时间里为中国抗日革命呕心沥血，毛泽东称其为是一个高尚的人，一个纯粹的人，一个有道德的人，一个脱离了低级趣味的人，一个有益于人民的人。</p>
+                    <p>本馆为<strong>数字虚拟纪念馆</strong>，汇聚全球捐赠名录、雕像档案与文创工程。</p>
+                    <a href="#statues" class="btn"><i class="fas fa-arrow-down"></i> 探访雕像群落</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 雕像全景：原雕像+新雕像+其他地区雕像 -->
+    <section id="statues" class="section">
+        <div class="container">
+            <h2 class="section-title">🌏 白求恩雕像 · 全球传承谱系</h2>
+            <div class="card-grid">
+                <div class="stat-card">
+                    <i class="fas fa-history" style="font-size: 2.5rem; color:#b45a3a;"></i>
+                    <h3 style="margin: 12px 0;">吉林大学基础医学部雕像</h3>
+                    <p>
+                        <strong>落成时间：</strong>1980年代<br>
+                        <strong>坐落地点：</strong>吉林大学基础医学部 (新民校区)<br>
+                        <strong>雕像情况：</strong><br>
+                        &nbsp;&nbsp;高度：2.2m<br>
+                        &nbsp;&nbsp;基座：3.6m<br>
+                        &nbsp;&nbsp;总高：5.08m<br>
+                        医学生誓言圣地，历史丰碑。
+                    </p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star-of-life" style="font-size: 2.5rem; color:#b45a3a;"></i>
+                    <h3>吉大新雕像 (全球校友捐赠)</h3>
+                    <p><strong>坐落地点：</strong>吉林大学前卫南区 (鼎新广场)<br>总高8.07米 (雕像4.99m+基座3.08m)<br>材质：北京房山一号汉白玉，基座花岗岩(人民英雄纪念碑同款)。仰角37°，2025年秋揭幕。</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-globe-americas" style="font-size: 2.5rem; color:#b45a3a;"></i>
+                    <h3>其他地区雕像</h3>
+                    <p>📍 石家庄白求恩纪念馆广场 · 青铜像<br>📍 加拿大蒙特利尔·白求恩故居塑像<br>📍 延安白求恩国际和平医院雕像<br>📍 多伦多大学医学院· Bethune纪念像<br>精神跨越国界，全球超12座纪念雕塑。</p>
+                </div>
+            </div>
+            <div style="background: #f2e7dc; border-radius: 32px; margin-top: 32px; padding: 20px; text-align: center;">
+                <i class="fas fa-ruler-combined"></i> <strong>新雕像技术精要：</strong> 仰角37° (tan37°=8.07/10.71)，地下基础3.08m毛石砂浆(与长春苏军纪念碑同工艺)，抗震级别8度。
+            </div>
+        </div>
+    </section>
+
+    <!-- 校友捐赠·全部捐赠明细 -->
+    <section id="donation" class="section">
+        <div class="container">
+            <h2 class="section-title">🤝 全球校友捐赠名录 · 每一份心意铸就丰碑</h2>
+            <p style="text-align: center; margin-bottom: 24px;"><strong>总筹款目标：¥8,200,000</strong> &nbsp;|&nbsp; <span style="color:#b23c1c;">已募集 ¥7,968,200 (97.2%)</span> 感谢197个校友组织及数千名个人</p>
+            <div class="donation-table">
+                <table>
+                    <thead><tr><th>捐赠方/校友组织</th><th>捐赠金额 (RMB)</th><th>寄语 / 批次</th></tr></thead>
+                    <tbody>
+                        <tr><td>北美吉大校友总会 (多伦多分会)</td><td>1,250,000</td><td>铭记白求恩国际主义</td></tr>
+                        <tr><td>加拿大白求恩医学发展基金会</td><td>820,000</td><td>加中友谊永存</td></tr>
+                        <tr><td>北京协和医学院吉大学子</td><td>560,000</td><td>传承无私奉献</td></tr>
+                        <tr><td>吉林省校友企业家联谊会</td><td>1,000,000</td><td>鼎力新雕像工程</td></tr>
+                        <tr><td>上海校友会医学分会</td><td>430,000</td><td>致敬白求恩精神</td></tr>
+                        <tr><td>澳大利亚吉大校友会</td><td>280,000</td><td>南半球爱心汇聚</td></tr>
+                        <tr><td>深圳校友会 · 白求恩专项基金</td><td>620,000</td><td>支持汉白玉雕塑</td></tr>
+                        <tr><td>李光耀医学基金 (匿名校友)</td><td>1,500,000</td><td>弘扬仁心仁术</td></tr>
+                        <tr><td>吉林大学白求恩医学部79级全体</td><td>880,000</td><td>永远怀念</td></tr>
+                        <tr><td>美国加州校友会</td><td>328,200</td><td>携手共铸丰碑</td></tr>
+                        <tr><td>其他个人及团体 (1356笔)</td><td>2,300,000</td><td>涓滴成海</td></tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 18px; font-size: 0.85rem;">※ 以上为部分代表性捐赠展示，完整名录将在实体纪念馆镌刻于“功德墙”。每一笔资金专项用于新雕像建设、基座艺术及园区纪念设施。</p>
+            </div>
+            <div style="text-align: center; margin-top: 24px;">
+                <a href="#" class="btn btn-outline"><i class="fas fa-donate"></i> 加入捐赠 · 延续大爱</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 白求恩精神专栏 + 毛主席宣扬文字 -->
+    <section id="bethune-spirit" class="section" style="background: #faf5ed;">
+        <div class="container">
+            <h2 class="section-title">📖 白求恩精神 · 永放光芒</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+                <div style="flex:1;">
+                    <h3><i class="fas fa-quote-left"></i> 毫不利己，专门利人</h3>
+                    <p style="margin: 20px 0;">诺尔曼·白求恩 (Norman Bethune) ，加拿大共产党员，国际主义战士。1938年率领医疗队援助中国抗日战争，在极端艰苦环境中救死扶伤，最终因抢救伤员感染败血症牺牲于河北唐县。其无私奉献、极端负责的精神，成为全人类共同的精神财富。</p>
+                    <p>白求恩雕像不仅纪念一位医者，更是跨越种族与国界的人道主义灯塔。吉大新旧两座雕像与全球数十座塑像，共同诉说着“大医精诚”的信念。</p>
+                </div>
+                <div class="quote-box" style="flex:1; background: #e8d9cd;">
+                    <i class="fas fa-crown" style="font-size: 2rem; opacity: 0.6;"></i>
+                    <p style="font-size: 1.3rem; font-weight: 500;">“一个人能力有大小，但只要有这点精神，就是一个高尚的人，一个纯粹的人，一个有道德的人，一个脱离了低级趣味的人，一个有益于人民的人。”</p>
+                    <p>—— 毛泽东《纪念白求恩》 (1939年)</p>
+                    <hr style="margin: 20px 0; border-color:#cbaa8a;">
+                    <p style="font-size: 0.95rem;">毛主席撰文号召全体党员学习白求恩精神，这篇光辉著作深刻影响了中国几代人。今日，白求恩精神依然在抗疫、救灾及国际医疗援助中闪耀。</p>
+                </div>
+            </div>
+            <div style="margin-top: 44px; background: #fff7f0; border-radius: 40px; padding: 28px;">
+                <h3><i class="fas fa-chalkboard-user"></i> 白求恩精神的当代实践</h3>
+                <p>吉林大学白求恩医学部每年举办“白求恩精神论坛”，设立学习奖学金；同时援外医疗队重温白求恩誓言。新雕像将成为全国医学人文教育重要地标。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文创产品 - 3D打印白求恩新雕像 -->
+    <section id="cultural-creative" class="section">
+        <div class="container">
+            <h2 class="section-title">🖨️ 文创工坊 · 3D打印微缩丰碑</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 36px;">基于新雕像数字模型，采用高精度3D打印工艺制作纪念雕塑，还原汉白玉质感与37°仰角神韵。多规格可选，定制专属白求恩纪念像。</p>
+            <div class="product-row">
+                <div class="product-card">
+                    <i class="fas fa-cube" style="font-size: 2.8rem; color:#ac5c38;"></i>
+                    <h3>1:1 等比复刻</h3>
+                    <p>完整高度8.07米 <br> (需现场组装)<br> 适用于大型纪念馆、医学院校定制</p>
+                    <span class="badge">尊享定制 | 询价</span>
+                    <div style="margin-top: 12px;"><a href="#" class="btn-outline btn" style="padding:6px 16px;">预约定制</a></div>
+                </div>
+                <div class="product-card">
+                    <i class="fas fa-vector-square" style="font-size: 2.8rem; color:#ac5c38;"></i>
+                    <h3>100:1 珍藏版</h3>
+                    <p>高度约8cm / 典雅桌面摆件<br> 细节精湛，树脂仿汉白玉涂装，限量编号</p>
+                    <span class="badge">限量500尊  ¥ 880</span>
+                    <div><a href="#" class="btn-outline btn" style="margin-top: 8px;">预购珍藏</a></div>
+                </div>
+                <div class="product-card">
+                    <i class="fas fa-chart-simple" style="font-size: 2.8rem; color:#ac5c38;"></i>
+                    <h3>50:1 教学版</h3>
+                    <p>16cm高 / 底座激光雕刻<br> 附带精神铭牌，适合校园及个人收藏</p>
+                    <span class="badge"> ¥ 1,280</span>
+                    <div><a href="#" class="btn-outline btn">查看详情</a></div>
+                </div>
+                <div class="product-card">
+                    <i class="fas fa-ruler" style="font-size: 2.8rem; color:#ac5c38;"></i>
+                    <h3>200:1 典藏系列</h3>
+                    <p>4cm微型纪念章/钥匙链套装 <br> 便携传承白求恩精神</p>
+                    <span class="badge">¥ 198 套装</span>
+                    <div><a href="#" class="btn-outline btn">立即支持</a></div>
+                </div>
+            </div>
+            <div style="margin-top: 38px; background: #f0e6db; border-radius: 36px; padding: 20px; text-align: center;">
+                <i class="fas fa-print"></i> 所有3D打印产品收益的10%将注入“白求恩雕像维护基金”，用于未来实体纪念馆运营。支持100:1以上尺寸可定制铭刻姓名/寄语。
+            </div>
+        </div>
+    </section>
+
+    <!-- 虚拟馆与实体馆建设说明 -->
+    <section id="virtual-hall" class="section">
+        <div class="container">
+            <div style="background: linear-gradient(115deg, #f0e4d6, #faf1e6); border-radius: 60px; padding: 48px 32px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: center;">
+                    <div style="flex:1; text-align: center;"><i class="fas fa-vr-cardboard" style="font-size: 4rem; color:#a35d3c;"></i></div>
+                    <div style="flex:2;">
+                        <h2 style="font-size: 2rem;">🏛️ 虚拟数字馆 · 实体馆蓝图</h2>
+                        <p style="font-size: 1.1rem; margin: 16px 0;">本站为<strong>白求恩雕像全球数字虚拟馆</strong>，采用全景交互、线上捐赠墙、3D模型展示等形式，让世界各地瞻仰者齐聚云端。实体纪念馆选址<strong>吉林大学前卫南区 (南校) 新雕像旁</strong>，计划建设“白求恩精神陈列厅”，包含历史文献、雕像创作手稿、沉浸式影厅。实体馆预计 <strong>1年后 (2026年秋季) 正式落成开馆</strong>，届时将举办国际白求恩论坛及雕像揭幕一周年庆典。</p>
+                        <div><span class="badge" style="background:#b23c1c; color:white;"><i class="fas fa-clock"></i> 建设筹备中 · 2026年敬请期待</span></div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 40px; text-align: center;">
+                <p><i class="fas fa-map-marker-alt"></i> 实体馆地址：吉林省长春市吉林大学前卫南区鼎新广场东侧 | 虚拟馆已上线3D展厅 (即将推出全景漫游)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 参观与联系 -->
+    <section style="padding: 40px 0 70px;">
+        <div class="container">
+            <div style="background: #ece0d4; border-radius: 48px; padding: 32px;">
+                <h3 style="text-align: center; font-size: 1.8rem;">📅 双雕像瞻仰信息</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 28px; margin-top: 28px;">
+                    <div style="flex:1;"><i class="fas fa-building"></i> <strong>原雕像 (基础医学部)</strong><br>长春市朝阳区新民大街828号，全天开放，免费。</div>
+                    <div style="flex:1;"><i class="fas fa-tree"></i> <strong>新雕像 (南校·建设中)</strong><br>预计2025年10月揭幕，现阶段可参观建设现场外围。</div>
+                    <div style="flex:1;"><i class="fas fa-headset"></i> 团体预约/讲解：0431-85166888 白求恩雕像传承办公室</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <div><strong>白求恩雕像全球校友捐赠委员会</strong><br>吉林大学白求恩医学部·文化基金会</div>
+            <div class="footer-links">
+                <a href="#statues">雕像谱系</a>  <a href="#donation">捐赠芳名录</a>  <a href="#cultural-creative">3D打印文创</a>  <a href="#virtual-hall">虚拟馆动态</a>
+            </div>
+            <div><i class="fas fa-envelope"></i> bethune_virtual@jlu.edu.cn<br>© 2025 数字虚拟纪念馆 | 资料基于真实工程与捐赠档案</div>
+        </div>
+        <div style="margin-top: 40px; text-align: center; border-top: 1px solid #514436; padding-top: 24px; font-size: 0.8rem;">
+            💙 国际主义精神永存 · 全球校友共筑丰碑
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.querySelectorAll('.nav-links a, .btn[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            let href = this.getAttribute('href');
+            if(href && href.startsWith('#')) {
+                e.preventDefault();
+                let target = href.substring(1);
+                let element = document.getElementById(target);
+                if(element) element.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+    // active link highlight
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const scrollPos = window.scrollY + 150;
+        sections.forEach(section => {
+            const top = section.offsetTop, height = section.clientHeight;
+            if(scrollPos >= top && scrollPos < top + height) current = section.getAttribute('id');
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if(link.getAttribute('href') === `#${current}`) link.classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>
