@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <meta name="version" content="v2.0.7">
+    <meta name="version" content="v2.1.1">
     <title>白求恩雕像虚拟馆 | 全球传承谱系</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -106,7 +106,7 @@
             display: inline-block;
             background-color: #b23c1c;
             color: white;
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 40px;
             text-decoration: none;
             font-weight: 600;
@@ -160,6 +160,11 @@
             height: auto;
             border-radius: 32px;
         }
+        .hero-img-container .img-caption {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #7a5a48;
+        }
         @media (max-width: 640px) {
             .hero-image { flex: 1; }
             .hero-text { flex: 1; }
@@ -173,20 +178,11 @@
             .hero-text h1 { font-size: 1.8rem; }
         }
         .hero-text p {
-            margin-bottom: 16px;
-        }
-        .hero-text .bethune-caption {
-            font-size: 0.85rem;
-            color: #7a5a48;
-            margin-top: 8px;
             margin-bottom: 20px;
+            line-height: 1.6;
         }
 
-        /* ========= 时间轴样式 ========= */
-        .timeline-section {
-            background: #fffcf8;
-        }
-        /* 新雕像独立区域 - 图片占屏幕1/3高度 */
+        /* 新雕像独立区域 */
         .featured-statue {
             margin-bottom: 60px;
             background: #ffffff;
@@ -207,7 +203,7 @@
             align-items: center;
             justify-content: center;
             padding: 32px;
-            min-height: 33vh;  /* 占据屏幕高度的1/3 */
+            min-height: 33vh;
         }
         .featured-image img {
             max-width: 100%;
@@ -264,22 +260,18 @@
             color: #9b7a62;
         }
         @media (max-width: 768px) {
-            .featured-inner {
-                flex-direction: column;
-            }
+            .featured-inner { flex-direction: column; }
             .featured-image {
-                flex: auto;
-                order: 1;
-                min-height: 30vh;
+                flex: auto; order: 1;
+                min-height: 30vh; padding: 20px;
             }
-            .featured-info {
-                order: 2;
-            }
-            .featured-specs {
-                grid-template-columns: 1fr;
-            }
+            .featured-image img { max-height: 30vh; }
+            .featured-info { order: 2; padding: 24px 20px; }
+            .featured-specs { grid-template-columns: 1fr; }
+            .featured-info h3 { font-size: 1.5rem; }
         }
 
+        /* 时间轴 - 圆点位于年份正上方 */
         .timeline {
             position: relative;
             max-width: 1000px;
@@ -289,10 +281,10 @@
         .timeline::before {
             content: '';
             position: absolute;
-            left: 28px;
+            left: 24px;
             top: 0;
             bottom: 0;
-            width: 3px;
+            width: 2px;
             background: #d9c6b4;
             border-radius: 2px;
         }
@@ -310,10 +302,10 @@
         }
         .timeline-dot {
             position: absolute;
-            left: 20px;
-            top: 8px;
-            width: 18px;
-            height: 18px;
+            left: 18px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
             background: #b23c1c;
             border-radius: 50%;
             border: 3px solid #fff3e8;
@@ -322,8 +314,8 @@
         }
         .timeline-year {
             position: absolute;
-            left: 12px;
-            top: 34px;
+            left: 6px;
+            top: 28px;
             font-weight: 800;
             font-size: 1rem;
             color: #b23c1c;
@@ -336,22 +328,28 @@
         }
         @media (max-width: 640px) {
             .timeline {
-                padding-left: 12px;
+                padding-left: 16px;
             }
             .timeline::before {
                 left: 20px;
             }
             .timeline-item {
                 padding-left: 55px;
+                margin-bottom: 40px;
             }
             .timeline-dot {
-                left: 12px;
-                top: 8px;
+                left: 14px;
+                top: 4px;
+                width: 14px;
+                height: 14px;
+                border-width: 2px;
             }
             .timeline-year {
-                left: 4px;
-                top: 34px;
+                left: 2px;
+                top: 26px;
                 font-size: 0.85rem;
+                padding: 2px 10px;
+                background: #e8d9cd;
             }
         }
         .timeline-card {
@@ -406,10 +404,14 @@
         @media (max-width: 640px) {
             .timeline-card {
                 flex-direction: column;
+                padding: 18px;
+            }
+            .timeline-info h4 {
+                font-size: 1.1rem;
             }
         }
 
-        /* 其他样式 */
+        /* 捐赠表格样式 */
         .donation-table {
             background: #fffbf0;
             border-radius: 28px;
@@ -428,9 +430,18 @@
             text-align: left;
             border-bottom: 1px solid #e5d5c6;
         }
-        .donation-table th { background: #e7d9ce; font-weight: 700; }
-        .donation-note { font-size: 0.8rem; color: #8a6e58; margin-top: 10px; text-align: center; }
+        .donation-table th {
+            background: #e7d9ce;
+            font-weight: 700;
+        }
+        .donation-note {
+            font-size: 0.8rem;
+            color: #8a6e58;
+            margin-top: 10px;
+            text-align: center;
+        }
 
+        /* 白求恩精神 */
         .spirit-quote-block {
             background: #e8d9cd;
             border-radius: 48px;
@@ -460,6 +471,12 @@
             margin-bottom: 12px;
             color: #b23c1c;
         }
+        @media (max-width: 640px) {
+            .spirit-quote-block { padding: 24px 20px; }
+            .spirit-quote-block .quote { font-size: 1.1rem; }
+            .spirit-desc { padding: 24px 20px; }
+            .spirit-card h3 { font-size: 1.2rem; }
+        }
 
         .product-row {
             display: flex;
@@ -480,11 +497,15 @@
             display: inline-block;
             background: #b23c1c;
             color: white;
-            padding: 6px 16px;
+            padding: 8px 16px;
             border-radius: 30px;
             text-decoration: none;
             font-size: 0.8rem;
         }
+        @media (max-width: 640px) {
+            .product-card { width: 100%; max-width: 280px; }
+        }
+
         footer {
             background: #2b241f;
             color: #d9cdbf;
@@ -507,11 +528,15 @@
             font-weight: 700;
             color: #b23c1c;
         }
-        .version {
+        .version, .author-info {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 16px;
             font-size: 0.7rem;
             color: #9b8a7a;
+        }
+        @media (max-width: 640px) {
+            .visit-info { padding: 24px 20px; }
+            .visit-info .phone { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -536,19 +561,19 @@
 </header>
 
 <main>
-    <!-- Hero 区域 -->
+    <!-- Hero 区域：恢复完整文字，不再显示右侧小字 -->
     <section id="home" style="padding: 40px 0 50px; background: linear-gradient(130deg,#fdf7ef,#f5ede2);">
         <div class="container">
             <div class="hero-wrapper">
                 <div class="hero-image">
                     <div class="hero-img-container">
                         <img src="image/01 bethune.webp" alt="白求恩大夫肖像" onerror="this.src='https://placehold.co/400x400?text=白求恩'">
+                        <div class="img-caption"><i class="fas fa-camera"></i> 诺尔曼·白求恩大夫 · Dr. Norman Bethune (1890–1939)</div>
                     </div>
                 </div>
                 <div class="hero-text">
-                    <div class="bethune-caption"><i class="fas fa-camera"></i> 诺尔曼·白求恩大夫 · Dr. Norman Bethune (1890–1939)</div>
                     <h1>诺尔曼·白求恩<br>全球校友精神丰碑</h1>
-                    <p>白求恩，全名亨利·诺尔曼·白求恩（Henry Norman Bethune，1890—1939），加拿大共产党员，国际主义战士。1938年来华，1939年因抢救伤员感染败血症牺牲。毛泽东称其“是一个高尚的人，一个纯粹的人”。</p>
+                    <p>白求恩，全名亨利·诺尔曼·白求恩（Henry Norman Bethune，1890年3月4日—1939年11月12日），加拿大共产党员，国际主义战士，著名胸外科医师。1938年来华，1939年因抢救伤员感染败血症牺牲。毛泽东称其“是一个高尚的人，一个纯粹的人，一个有道德的人，一个脱离了低级趣味的人，一个有益于人民的人”。</p>
                     <p>本馆为<strong>数字虚拟纪念馆</strong>，汇聚全球捐赠名录、雕像档案与文创工程。</p>
                     <a href="#global-heritage" class="btn"><i class="fas fa-arrow-down"></i> 探访全球雕像谱系</a>
                 </div>
@@ -556,13 +581,13 @@
         </div>
     </section>
 
-    <!-- 全球传承谱系（时间轴布局） -->
+    <!-- 全球传承谱系 -->
     <section id="global-heritage" class="section timeline-section">
         <div class="container">
             <h2 class="section-title">🌏 全球传承谱系 · 白求恩纪念雕像</h2>
             <p style="text-align: center; margin-bottom: 20px;">白求恩的精神跨越时空，世界各地的雕像见证了人们对他的永恒怀念。以下按时间顺序排列。</p>
 
-            <!-- 新雕像区域：标题改为“吉林大学 · 新雕像”，图片高度占屏幕1/3 -->
+            <!-- 新雕像区域 -->
             <div class="featured-statue">
                 <div class="featured-inner">
                     <div class="featured-image">
@@ -572,34 +597,13 @@
                         <h3>吉林大学 · 新雕像</h3>
                         <div class="featured-status">全球校友捐赠 · 计划2026年落成</div>
                         <div class="featured-specs">
-                            <div class="spec-item">
-                                <span class="spec-label">📏 总高</span>
-                                <span class="spec-value">8.07米</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">🗿 雕像净高</span>
-                                <span class="spec-value">4.99米</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">📐 基座高</span>
-                                <span class="spec-value">3.08米</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">🪨 雕像材质</span>
-                                <span class="spec-value">北京房山一号汉白玉</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">🧱 基座材质</span>
-                                <span class="spec-value">花岗岩（人民英雄纪念碑同款）</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">🏗️ 地基工艺</span>
-                                <span class="spec-value">毛石砂浆（长春苏军纪念碑同工艺）</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">🔭 观看角度</span>
-                                <span class="spec-value">仰角37°</span>
-                            </div>
+                            <div class="spec-item"><span class="spec-label">📏 总高</span><span class="spec-value">8.07米</span></div>
+                            <div class="spec-item"><span class="spec-label">🗿 雕像净高</span><span class="spec-value">4.99米</span></div>
+                            <div class="spec-item"><span class="spec-label">📐 基座高</span><span class="spec-value">3.08米</span></div>
+                            <div class="spec-item"><span class="spec-label">🪨 雕像材质</span><span class="spec-value">北京房山一号汉白玉</span></div>
+                            <div class="spec-item"><span class="spec-label">🧱 基座材质</span><span class="spec-value">花岗岩（人民英雄纪念碑同款）</span></div>
+                            <div class="spec-item"><span class="spec-label">🏗️ 地基工艺</span><span class="spec-value">毛石砂浆（长春苏军纪念碑同工艺）</span></div>
+                            <div class="spec-item"><span class="spec-label">🔭 观看角度</span><span class="spec-value">仰角37°</span></div>
                         </div>
                         <div class="featured-author">✍️ 作者：司徒杰徒弟</div>
                     </div>
@@ -608,7 +612,6 @@
 
             <!-- 时间轴列表 -->
             <div class="timeline">
-                <!-- 1940年 -->
                 <div class="timeline-item" data-year="1940">
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">1940</div>
@@ -622,7 +625,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- 1956年 -->
                 <div class="timeline-item" data-year="1956">
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">1956</div>
@@ -636,7 +638,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- 1964年 -->
                 <div class="timeline-item" data-year="1964">
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">1964</div>
@@ -650,7 +651,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- 1976年 -->
                 <div class="timeline-item" data-year="1976">
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">1976</div>
@@ -664,7 +664,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- 1978年 -->
                 <div class="timeline-item" data-year="1978">
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">1978</div>
@@ -678,7 +677,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- 2000年 -->
                 <div class="timeline-item" data-year="2000">
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">2000</div>
@@ -692,7 +690,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- 2020年 -->
                 <div class="timeline-item" data-year="2020">
                     <div class="timeline-dot"></div>
                     <div class="timeline-year">2020</div>
@@ -710,26 +707,28 @@
         </div>
     </section>
 
-    <!-- 校友捐赠：总筹款目标与已募集均改为 ***** -->
+    <!-- 校友捐赠：表格结构修正 -->
     <section id="donation" class="section">
         <div class="container">
             <h2 class="section-title">🤝 全球校友捐赠名录</h2>
             <p style="text-align: center; margin-bottom: 20px;"><strong>总筹款目标：*****</strong> &nbsp;|&nbsp; <span style="color:#b23c1c;">已募集 *****</span></p>
             <div class="donation-table">
                 <table>
-                    <thead><tr><th>捐赠方/校友组织</th><th>金额 (RMB)</th><th>寄语</th></tr></thead>
+                    <thead>
+                        <tr><th>捐赠方/校友组织</th><th>金额 (RMB)</th><th>寄语</th></tr>
+                    </thead>
                     <tbody>
-                        <tr><td>北美吉大校友总会 (多伦多分会)</td><td>***</td><td>铭记白求恩国际主义</td> </tr>
-                        <tr><td>加拿大白求恩医学发展基金会</td><td>***</td><td>加中友谊永存</td> </tr>
-                        <tr><td>北京协和医学院吉大学子</td><td>***</td><td>传承无私奉献</td> </tr>
-                        <tr><td>吉林省校友企业家联谊会</td><td>***</td><td>鼎力新雕像工程</td> </tr>
-                        <tr><td>上海校友会医学分会</td><td>***</td><td>致敬白求恩精神</td> </tr>
-                        <tr><td>澳大利亚吉大校友会</td><td>***</td><td>南半球爱心汇聚</td> </tr>
-                        <tr><td>深圳校友会 · 白求恩专项基金</td><td>***</td><td>支持汉白玉雕塑</td> </tr>
-                        <tr><td>李光耀医学基金 (匿名)</td><td>***</td><td>弘扬仁心仁术</td> </tr>
-                        <tr><td>吉林大学白求恩医学部79级全体</td><td>***</td><td>永远怀念</td> </tr>
-                        <tr><td>美国加州校友会</td><td>***</td><td>携手共铸丰碑</td> </tr>
-                        <tr><td>其他个人及团体 (1356笔)</td><td>***</td><td>涓滴成海</td> </tr>
+                        <tr><td>北美吉大校友总会 (多伦多分会)</td><td>***</td><td>铭记白求恩国际主义</td></tr>
+                        <tr><td>加拿大白求恩医学发展基金会</td><td>***</td><td>加中友谊永存</td></tr>
+                        <tr><td>北京协和医学院吉大学子</td><td>***</td><td>传承无私奉献</td></tr>
+                        <tr><td>吉林省校友企业家联谊会</td><td>***</td><td>鼎力新雕像工程</td></tr>
+                        <tr><td>上海校友会医学分会</td><td>***</td><td>致敬白求恩精神</td></tr>
+                        <tr><td>澳大利亚吉大校友会</td><td>***</td><td>南半球爱心汇聚</td></tr>
+                        <tr><td>深圳校友会 · 白求恩专项基金</td><td>***</td><td>支持汉白玉雕塑</td></tr>
+                        <tr><td>李光耀医学基金 (匿名)</td><td>***</td><td>弘扬仁心仁术</td></tr>
+                        <tr><td>吉林大学白求恩医学部79级全体</td><td>***</td><td>永远怀念</td></tr>
+                        <tr><td>美国加州校友会</td><td>***</td><td>携手共铸丰碑</td></tr>
+                        <tr><td>其他个人及团体 (1356笔)</td><td>***</td><td>涓滴成海</td></tr>
                     </tbody>
                 </table>
                 <div class="donation-note">⚠️ 以上捐赠数据均为虚拟示意，金额已做遮蔽处理。</div>
@@ -748,18 +747,9 @@
                 <p>—— 毛泽东《纪念白求恩》 (1939年)</p>
             </div>
             <div class="spirit-desc">
-                <div class="spirit-card">
-                    <h3><i class="fas fa-globe-asia"></i> 国际主义精神</h3>
-                    <p>毛泽东认为，纪念白求恩首先要学习他的国际主义精神。白求恩不远万里来到中国，把中国人民的解放事业当作自己的事业，体现了共产主义精神。</p>
-                </div>
-                <div class="spirit-card">
-                    <h3><i class="fas fa-hand-holding-heart"></i> “毫不利己专门利人”的精神</h3>
-                    <p>白求恩对工作极端负责，对人民极端热忱。他拒绝特殊待遇，要求“当一挺机关枪使用”，被毛泽东赞为“真正共产主义者的精神”。</p>
-                </div>
-                <div class="spirit-card">
-                    <h3><i class="fas fa-stethoscope"></i> “对技术精益求精”的精神</h3>
-                    <p>白求恩在边区创办卫生学校、编写教材，培养了大批医护骨干。他说：“好技术可以更快地医好病人。”毛泽东指出这是对鄙薄技术工作者的极好教训。</p>
-                </div>
+                <div class="spirit-card"><h3><i class="fas fa-globe-asia"></i> 国际主义精神</h3><p>毛泽东认为，纪念白求恩首先要学习他的国际主义精神。白求恩不远万里来到中国，把中国人民的解放事业当作自己的事业，体现了共产主义精神。</p></div>
+                <div class="spirit-card"><h3><i class="fas fa-hand-holding-heart"></i> “毫不利己专门利人”的精神</h3><p>白求恩对工作极端负责，对人民极端热忱。他拒绝特殊待遇，要求“当一挺机关枪使用”，被毛泽东赞为“真正共产主义者的精神”。</p></div>
+                <div class="spirit-card"><h3><i class="fas fa-stethoscope"></i> “对技术精益求精”的精神</h3><p>白求恩在边区创办卫生学校、编写教材，培养了大批医护骨干。他说：“好技术可以更快地医好病人。”毛泽东指出这是对鄙薄技术工作者的极好教训。</p></div>
             </div>
         </div>
     </section>
@@ -779,7 +769,7 @@
         </div>
     </section>
 
-    <!-- 虚拟馆（建设中） -->
+    <!-- 虚拟馆 -->
     <section id="virtual-hall" class="section">
         <div class="container">
             <div style="background: linear-gradient(115deg, #f0e4d6, #faf1e6); border-radius: 48px; padding: 48px 24px; text-align: center;">
@@ -810,7 +800,8 @@
             <div><a href="#global-heritage" style="color:#d9c2b0;">全球传承谱系</a> | <a href="#donation" style="color:#d9c2b0;">捐赠名录</a> | <a href="#cultural-creative" style="color:#d9c2b0;">3D打印文创</a></div>
             <div><i class="fas fa-envelope"></i> bethune_virtual@jlu.edu.cn</div>
         </div>
-        <div class="version">版本 v2.0.7 | 数字虚拟纪念馆 · 持续更新</div>
+        <div class="version">版本 v2.1.1 · 文件生成时间：2026年6月13日</div>
+        <div class="author-info">网站作者：zhanghoffin</div>
         <div style="margin-top:16px; text-align:center; border-top:1px solid #514436; padding-top:20px; font-size:0.75rem;">
             💙 国际主义精神永存 · 全球校友共筑丰碑 · © 2025 数字虚拟纪念馆
         </div>
