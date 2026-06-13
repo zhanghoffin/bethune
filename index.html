@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="version" content="v2.0.7">
+    <title>白求恩雕像虚拟馆 | 全球传承谱系</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefbf6;
+            color: #1e2a2e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        @media (max-width: 640px) {
+            .container { padding: 0 16px; }
+        }
+        header {
+            background: rgba(255,252,245,0.96);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e9e0d0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #9e2a2b, #c44536);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .logo span { font-weight: 400; color: #7a5a48; font-size: 0.9rem; }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #b23c1c;
+            padding: 4px 8px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #3b2c24;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #b23c1c;
+            border-bottom: 2px solid #b23c1c;
+            padding-bottom: 4px;
+        }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: rgba(255,252,245,0.98);
+                backdrop-filter: blur(10px);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 16px 20px;
+                border-radius: 0 0 24px 24px;
+                box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+                z-index: 99;
+                gap: 16px;
+                border-top: 1px solid #e9e0d0;
+            }
+            .nav-links.show { display: flex; }
+            .nav-links li { width: 100%; text-align: center; }
+            .navbar .btn-outline { margin-left: auto; margin-right: 12px; }
+        }
+        .btn {
+            display: inline-block;
+            background-color: #b23c1c;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.25s;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #b23c1c;
+            color: #b23c1c;
+        }
+        .section {
+            padding: 50px 0;
+            border-bottom: 1px solid #ede3d5;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #2c3e2f;
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #c0693c;
+            margin: 12px auto 0;
+        }
+        @media (max-width: 640px) {
+            .section-title { font-size: 1.5rem; }
+            .section { padding: 40px 0; }
+        }
+        .hero-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+        .hero-image { flex: 0.8; text-align: center; }
+        .hero-text { flex: 1.5; }
+        .hero-img-container {
+            background: #e2d4c6;
+            border-radius: 48px;
+            padding: 16px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        .hero-img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 32px;
+        }
+        @media (max-width: 640px) {
+            .hero-image { flex: 1; }
+            .hero-text { flex: 1; }
+        }
+        .hero-text h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #392d24;
+        }
+        @media (max-width: 640px) {
+            .hero-text h1 { font-size: 1.8rem; }
+        }
+        .hero-text p {
+            margin-bottom: 16px;
+        }
+        .hero-text .bethune-caption {
+            font-size: 0.85rem;
+            color: #7a5a48;
+            margin-top: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* ========= 时间轴样式 ========= */
+        .timeline-section {
+            background: #fffcf8;
+        }
+        /* 新雕像独立区域 - 图片占屏幕1/3高度 */
+        .featured-statue {
+            margin-bottom: 60px;
+            background: #ffffff;
+            border-radius: 48px;
+            border: 1px solid #efe2d4;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+        }
+        .featured-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+        .featured-image {
+            flex: 0 0 33.333%;
+            background: #f5ede4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            min-height: 33vh;  /* 占据屏幕高度的1/3 */
+        }
+        .featured-image img {
+            max-width: 100%;
+            max-height: 33vh;
+            width: auto;
+            height: auto;
+            border-radius: 32px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            object-fit: contain;
+        }
+        .featured-info {
+            flex: 1;
+            padding: 32px 28px;
+            background: linear-gradient(145deg, #fffaf5, #fef6ed);
+        }
+        .featured-info h3 {
+            font-size: 1.8rem;
+            color: #b23c1c;
+            margin-bottom: 8px;
+        }
+        .featured-status {
+            display: inline-block;
+            background: #e8d9cd;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #b23c1c;
+            margin-bottom: 20px;
+        }
+        .featured-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px 24px;
+            margin: 20px 0;
+        }
+        .spec-item {
+            font-size: 0.95rem;
+        }
+        .spec-label {
+            font-weight: 600;
+            color: #5e4a38;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .spec-value {
+            color: #2c3e2f;
+        }
+        .featured-author {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed #e0d0c0;
+            font-size: 0.9rem;
+            color: #9b7a62;
+        }
+        @media (max-width: 768px) {
+            .featured-inner {
+                flex-direction: column;
+            }
+            .featured-image {
+                flex: auto;
+                order: 1;
+                min-height: 30vh;
+            }
+            .featured-info {
+                order: 2;
+            }
+            .featured-specs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 0 20px 20px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 28px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #d9c6b4;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 48px;
+            padding-left: 70px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 20px;
+            top: 8px;
+            width: 18px;
+            height: 18px;
+            background: #b23c1c;
+            border-radius: 50%;
+            border: 3px solid #fff3e8;
+            box-shadow: 0 0 0 2px #d9c6b4;
+            z-index: 1;
+        }
+        .timeline-year {
+            position: absolute;
+            left: 12px;
+            top: 34px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #b23c1c;
+            background: #fefbf6;
+            padding: 2px 8px;
+            border-radius: 20px;
+            white-space: nowrap;
+            z-index: 2;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 640px) {
+            .timeline {
+                padding-left: 12px;
+            }
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item {
+                padding-left: 55px;
+            }
+            .timeline-dot {
+                left: 12px;
+                top: 8px;
+            }
+            .timeline-year {
+                left: 4px;
+                top: 34px;
+                font-size: 0.85rem;
+            }
+        }
+        .timeline-card {
+            background: white;
+            border-radius: 28px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid #efe2d4;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .timeline-img {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+        .timeline-img img {
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 20px;
+            object-fit: contain;
+        }
+        .timeline-info {
+            flex: 2;
+        }
+        .timeline-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #b23c1c;
+        }
+        .timeline-info p {
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #3b2a24;
+            margin-bottom: 8px;
+        }
+        .timeline-author {
+            font-size: 0.85rem;
+            color: #9b7a62;
+            margin-top: 8px;
+            border-top: 1px dashed #eee0d2;
+            padding-top: 8px;
+        }
+        .timeline-meta {
+            font-size: 0.85rem;
+            color: #7a5a48;
+            margin-top: 6px;
+            padding-top: 4px;
+            border-top: none;
+        }
+        @media (max-width: 640px) {
+            .timeline-card {
+                flex-direction: column;
+            }
+        }
+
+        /* 其他样式 */
+        .donation-table {
+            background: #fffbf0;
+            border-radius: 28px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .donation-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 500px;
+        }
+        .donation-table th, .donation-table td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #e5d5c6;
+        }
+        .donation-table th { background: #e7d9ce; font-weight: 700; }
+        .donation-note { font-size: 0.8rem; color: #8a6e58; margin-top: 10px; text-align: center; }
+
+        .spirit-quote-block {
+            background: #e8d9cd;
+            border-radius: 48px;
+            padding: 36px 32px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .spirit-quote-block .quote {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 16px 0 8px;
+            line-height: 1.4;
+        }
+        .spirit-desc {
+            background: #fff7f0;
+            border-radius: 40px;
+            padding: 32px;
+        }
+        .spirit-card {
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5d5c6;
+        }
+        .spirit-card:last-child { border-bottom: none; }
+        .spirit-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #b23c1c;
+        }
+
+        .product-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+        }
+        .product-card {
+            background: white;
+            border-radius: 28px;
+            padding: 20px;
+            width: 240px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+        .product-card i { font-size: 2.8rem; color: #ac5c38; }
+        .product-btn {
+            display: inline-block;
+            background: #b23c1c;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        footer {
+            background: #2b241f;
+            color: #d9cdbf;
+            padding: 40px 0 20px;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        .visit-info {
+            background: #ece0d4;
+            border-radius: 40px;
+            padding: 32px;
+            text-align: center;
+        }
+        .visit-info .phone {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #b23c1c;
+        }
+        .version {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #9b8a7a;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">白求恩雕像<span> · 国际主义虚拟馆</span></div>
+            <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">首页</a></li>
+                <li><a href="#global-heritage">全球传承谱系</a></li>
+                <li><a href="#donation">校友捐赠</a></li>
+                <li><a href="#bethune-spirit">白求恩精神</a></li>
+                <li><a href="#cultural-creative">文创·3D打印</a></li>
+                <li><a href="#virtual-hall">虚拟馆&实体馆</a></li>
+            </ul>
+            <a href="#donation" class="btn btn-outline">致敬捐赠人</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero 区域 -->
+    <section id="home" style="padding: 40px 0 50px; background: linear-gradient(130deg,#fdf7ef,#f5ede2);">
+        <div class="container">
+            <div class="hero-wrapper">
+                <div class="hero-image">
+                    <div class="hero-img-container">
+                        <img src="image/01 bethune.webp" alt="白求恩大夫肖像" onerror="this.src='https://placehold.co/400x400?text=白求恩'">
+                    </div>
+                </div>
+                <div class="hero-text">
+                    <div class="bethune-caption"><i class="fas fa-camera"></i> 诺尔曼·白求恩大夫 · Dr. Norman Bethune (1890–1939)</div>
+                    <h1>诺尔曼·白求恩<br>全球校友精神丰碑</h1>
+                    <p>白求恩，全名亨利·诺尔曼·白求恩（Henry Norman Bethune，1890—1939），加拿大共产党员，国际主义战士。1938年来华，1939年因抢救伤员感染败血症牺牲。毛泽东称其“是一个高尚的人，一个纯粹的人”。</p>
+                    <p>本馆为<strong>数字虚拟纪念馆</strong>，汇聚全球捐赠名录、雕像档案与文创工程。</p>
+                    <a href="#global-heritage" class="btn"><i class="fas fa-arrow-down"></i> 探访全球雕像谱系</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 全球传承谱系（时间轴布局） -->
+    <section id="global-heritage" class="section timeline-section">
+        <div class="container">
+            <h2 class="section-title">🌏 全球传承谱系 · 白求恩纪念雕像</h2>
+            <p style="text-align: center; margin-bottom: 20px;">白求恩的精神跨越时空，世界各地的雕像见证了人们对他的永恒怀念。以下按时间顺序排列。</p>
+
+            <!-- 新雕像区域：标题改为“吉林大学 · 新雕像”，图片高度占屏幕1/3 -->
+            <div class="featured-statue">
+                <div class="featured-inner">
+                    <div class="featured-image">
+                        <img src="image/02 bethune-statue.png" alt="吉林大学前卫南区新雕像效果图">
+                    </div>
+                    <div class="featured-info">
+                        <h3>吉林大学 · 新雕像</h3>
+                        <div class="featured-status">全球校友捐赠 · 计划2026年落成</div>
+                        <div class="featured-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">📏 总高</span>
+                                <span class="spec-value">8.07米</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">🗿 雕像净高</span>
+                                <span class="spec-value">4.99米</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">📐 基座高</span>
+                                <span class="spec-value">3.08米</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">🪨 雕像材质</span>
+                                <span class="spec-value">北京房山一号汉白玉</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">🧱 基座材质</span>
+                                <span class="spec-value">花岗岩（人民英雄纪念碑同款）</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">🏗️ 地基工艺</span>
+                                <span class="spec-value">毛石砂浆（长春苏军纪念碑同工艺）</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">🔭 观看角度</span>
+                                <span class="spec-value">仰角37°</span>
+                            </div>
+                        </div>
+                        <div class="featured-author">✍️ 作者：司徒杰徒弟</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 时间轴列表 -->
+            <div class="timeline">
+                <!-- 1940年 -->
+                <div class="timeline-item" data-year="1940">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">1940</div>
+                    <div class="timeline-card">
+                        <div class="timeline-img"><img src="image/bethune1940.webp" alt="白求恩汉白玉雕像"></div>
+                        <div class="timeline-info">
+                            <h4>石家庄华北军区烈士陵园 · 白求恩汉白玉雕像</h4>
+                            <p>高1.3米，汉白玉质地，由刘庭芳于1940年雕刻完成。1953年3月，雕像与白求恩灵柩一起迁到石家庄华北军区烈士陵园。2001年，雕像被鉴定为国家二级文物。</p>
+                            <div class="timeline-author">作者：刘庭芳</div>
+                            <div class="timeline-meta">📍 石家庄华北军区烈士陵园 | 📜 国家二级文物</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 1956年 -->
+                <div class="timeline-item" data-year="1956">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">1956</div>
+                    <div class="timeline-card">
+                        <div class="timeline-img"><img src="image/bethune1956.webp" alt="白求恩全身像铜雕"></div>
+                        <div class="timeline-info">
+                            <h4>中国美术馆 · 白求恩全身像铜雕（司徒杰）</h4>
+                            <p>铜质，尺寸80cm×29cm×18cm。司徒杰创作，生动刻画白求恩形象，现收藏于中国美术馆。</p>
+                            <div class="timeline-author">作者：司徒杰</div>
+                            <div class="timeline-meta">🏛️ 收藏：中国美术馆</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 1964年 -->
+                <div class="timeline-item" data-year="1964">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">1964</div>
+                    <div class="timeline-card">
+                        <div class="timeline-img"><img src="image/bethune1964.webp" alt="中国医科大学白求恩雕塑"></div>
+                        <div class="timeline-info">
+                            <h4>中国医科大学 · 白求恩雕塑</h4>
+                            <p>1964年10月由第50期同学捐建。白求恩身穿白大衣，兜里装着听诊器，足蹬草鞋，脚缠腿绷。底座刻有“诺尔曼·白求恩”及“五十期毕业留念（1964.10）”。</p>
+                            <div class="timeline-author">作者：中国医科大学第50期全体同学</div>
+                            <div class="timeline-meta">📍 中国医科大学 | 🎓 50期毕业生捐赠</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 1976年 -->
+                <div class="timeline-item" data-year="1976">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">1976</div>
+                    <div class="timeline-card">
+                        <div class="timeline-img"><img src="image/bethune1976.jpg" alt="吉林大学基础医学院白求恩雕像"></div>
+                        <div class="timeline-info">
+                            <h4>吉林大学基础医学院 · 白求恩雕像（司徒杰）</h4>
+                            <p>高2.2米，站立式圆雕。雕像由司徒杰于1956年开始创作，历时3年完成，之后安放在石家庄白求恩国际和平医院院内。1976年国际和平医院将第一次创作的汉白玉白求恩雕像送给白求恩医科大学（现吉林大学）。</p>
+                            <div class="timeline-author">作者：司徒杰</div>
+                            <div class="timeline-meta">📍 吉林大学基础医学院（新民校区） | 材质：汉白玉</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 1978年 -->
+                <div class="timeline-item" data-year="1978">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">1978</div>
+                    <div class="timeline-card">
+                        <div class="timeline-img"><img src="image/bethune1978.webp" alt="白求恩石雕"></div>
+                        <div class="timeline-info">
+                            <h4>广东美术馆 · 白求恩石雕（潘鹤）</h4>
+                            <p>石质，尺寸60cm×45cm×50cm。著名雕塑家潘鹤创作，以凝练刀法表现白求恩的坚毅与奉献，现藏于广东美术馆。</p>
+                            <div class="timeline-author">作者：潘鹤</div>
+                            <div class="timeline-meta">🏛️ 广东美术馆</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2000年 -->
+                <div class="timeline-item" data-year="2000">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2000</div>
+                    <div class="timeline-card">
+                        <div class="timeline-img"><img src="image/bethune2000.webp" alt="加拿大格雷文赫斯特镇白求恩铜像"></div>
+                        <div class="timeline-info">
+                            <h4>加拿大格雷文赫斯特镇 · 白求恩铜像</h4>
+                            <p>2000年8月19日揭幕，铜像高约两米，白求恩身着八路军军服，右手拿着听诊器。加拿大总督阿德里安娜·克拉克森和中国驻加拿大大使梅平共同为铜像揭幕。</p>
+                            <div class="timeline-author">作者：加拿大政府委托创作</div>
+                            <div class="timeline-meta">📍 加拿大安大略省格雷文赫斯特镇 | 铜质 | 中加友谊象征</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2020年 -->
+                <div class="timeline-item" data-year="2020">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-card">
+                        <div class="timeline-img"><img src="image/bethune2020.png" alt="山西白求恩医院白求恩铜像"></div>
+                        <div class="timeline-info">
+                            <h4>山西白求恩医院 · 白求恩铜像</h4>
+                            <p>2020年1月3日在山西白求恩医院揭幕，时任山西省委书记郭树生出席揭幕活动。铜像承载着对白求恩精神的崇高敬意，激励医务工作者全心全意为人民服务。</p>
+                            <div class="timeline-author">作者：山西省政府组织创作</div>
+                            <div class="timeline-meta">📍 山西省太原市山西白求恩医院 | 🥉 铜质</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校友捐赠：总筹款目标与已募集均改为 ***** -->
+    <section id="donation" class="section">
+        <div class="container">
+            <h2 class="section-title">🤝 全球校友捐赠名录</h2>
+            <p style="text-align: center; margin-bottom: 20px;"><strong>总筹款目标：*****</strong> &nbsp;|&nbsp; <span style="color:#b23c1c;">已募集 *****</span></p>
+            <div class="donation-table">
+                <table>
+                    <thead><tr><th>捐赠方/校友组织</th><th>金额 (RMB)</th><th>寄语</th></tr></thead>
+                    <tbody>
+                        <tr><td>北美吉大校友总会 (多伦多分会)</td><td>***</td><td>铭记白求恩国际主义</td> </tr>
+                        <tr><td>加拿大白求恩医学发展基金会</td><td>***</td><td>加中友谊永存</td> </tr>
+                        <tr><td>北京协和医学院吉大学子</td><td>***</td><td>传承无私奉献</td> </tr>
+                        <tr><td>吉林省校友企业家联谊会</td><td>***</td><td>鼎力新雕像工程</td> </tr>
+                        <tr><td>上海校友会医学分会</td><td>***</td><td>致敬白求恩精神</td> </tr>
+                        <tr><td>澳大利亚吉大校友会</td><td>***</td><td>南半球爱心汇聚</td> </tr>
+                        <tr><td>深圳校友会 · 白求恩专项基金</td><td>***</td><td>支持汉白玉雕塑</td> </tr>
+                        <tr><td>李光耀医学基金 (匿名)</td><td>***</td><td>弘扬仁心仁术</td> </tr>
+                        <tr><td>吉林大学白求恩医学部79级全体</td><td>***</td><td>永远怀念</td> </tr>
+                        <tr><td>美国加州校友会</td><td>***</td><td>携手共铸丰碑</td> </tr>
+                        <tr><td>其他个人及团体 (1356笔)</td><td>***</td><td>涓滴成海</td> </tr>
+                    </tbody>
+                </table>
+                <div class="donation-note">⚠️ 以上捐赠数据均为虚拟示意，金额已做遮蔽处理。</div>
+            </div>
+            <div style="text-align: center;"><a href="#" class="btn btn-outline"><i class="fas fa-donate"></i> 加入捐赠</a></div>
+        </div>
+    </section>
+
+    <!-- 白求恩精神 -->
+    <section id="bethune-spirit" class="section" style="background: #faf5ed;">
+        <div class="container">
+            <h2 class="section-title">📖 白求恩精神 · 永放光芒</h2>
+            <div class="spirit-quote-block">
+                <i class="fas fa-quote-right"></i>
+                <p class="quote">“一个人能力有大小，但只要有这点精神，就是一个高尚的人，一个纯粹的人，一个有道德的人，一个脱离了低级趣味的人，一个有益于人民的人。”</p>
+                <p>—— 毛泽东《纪念白求恩》 (1939年)</p>
+            </div>
+            <div class="spirit-desc">
+                <div class="spirit-card">
+                    <h3><i class="fas fa-globe-asia"></i> 国际主义精神</h3>
+                    <p>毛泽东认为，纪念白求恩首先要学习他的国际主义精神。白求恩不远万里来到中国，把中国人民的解放事业当作自己的事业，体现了共产主义精神。</p>
+                </div>
+                <div class="spirit-card">
+                    <h3><i class="fas fa-hand-holding-heart"></i> “毫不利己专门利人”的精神</h3>
+                    <p>白求恩对工作极端负责，对人民极端热忱。他拒绝特殊待遇，要求“当一挺机关枪使用”，被毛泽东赞为“真正共产主义者的精神”。</p>
+                </div>
+                <div class="spirit-card">
+                    <h3><i class="fas fa-stethoscope"></i> “对技术精益求精”的精神</h3>
+                    <p>白求恩在边区创办卫生学校、编写教材，培养了大批医护骨干。他说：“好技术可以更快地医好病人。”毛泽东指出这是对鄙薄技术工作者的极好教训。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文创产品 -->
+    <section id="cultural-creative" class="section">
+        <div class="container">
+            <h2 class="section-title">🖨️ 文创工坊 · 3D打印微缩丰碑</h2>
+            <p style="text-align: center; margin-bottom: 30px;">基于新雕像数字模型，高精度3D打印，还原汉白玉质感与37°仰角神韵。</p>
+            <div class="product-row">
+                <div class="product-card"><i class="fas fa-cube"></i><h3>1:1 等比复刻</h3><div>尺寸8.07米<br>纪念馆/院校定制</div><div class="product-price">尊享定制·询价</div><a href="#" class="product-btn">预约定制</a></div>
+                <div class="product-card"><i class="fas fa-cube"></i><h3>100:1 珍藏版</h3><div>8cm摆件<br>限量编号</div><div class="product-price">¥880</div><a href="#" class="product-btn">预购珍藏</a></div>
+                <div class="product-card"><i class="fas fa-cube"></i><h3>50:1 教学版</h3><div>16cm高<br>附带精神铭牌</div><div class="product-price">¥1,280</div><a href="#" class="product-btn">查看详情</a></div>
+                <div class="product-card"><i class="fas fa-cube"></i><h3>30:1 典藏系列</h3><div>约26cm<br>高端收藏</div><div class="product-price">¥2,580</div><a href="#" class="product-btn">立即支持</a></div>
+            </div>
+            <div style="margin-top:28px; background:#f0e6db; border-radius:28px; padding:16px; text-align:center;">收益10%注入雕像维护基金。</div>
+        </div>
+    </section>
+
+    <!-- 虚拟馆（建设中） -->
+    <section id="virtual-hall" class="section">
+        <div class="container">
+            <div style="background: linear-gradient(115deg, #f0e4d6, #faf1e6); border-radius: 48px; padding: 48px 24px; text-align: center;">
+                <i class="fas fa-vr-cardboard" style="font-size: 3rem; margin-bottom: 16px;"></i>
+                <h2 style="font-size: 1.8rem;">🏛️ 虚拟数字馆</h2>
+                <p style="font-size: 1.2rem; margin-top: 16px;"><strong>建设中 · 敬请期待</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 瞻仰预约 -->
+    <section style="padding: 40px 0 60px;">
+        <div class="container">
+            <div class="visit-info">
+                <h3 style="font-size: 1.8rem; margin-bottom: 20px;">📅 雕像瞻仰预约</h3>
+                <p>如需前往瞻仰白求恩雕像，请提前电话预约。</p>
+                <p class="phone">📞 130 1234 5678</p>
+                <p style="margin-top: 16px; font-size: 0.9rem;">（虚拟号码，仅用于展示）</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div><strong>白求恩雕像全球校友捐赠委员会</strong><br>吉林大学白求恩医学部·文化基金会</div>
+            <div><a href="#global-heritage" style="color:#d9c2b0;">全球传承谱系</a> | <a href="#donation" style="color:#d9c2b0;">捐赠名录</a> | <a href="#cultural-creative" style="color:#d9c2b0;">3D打印文创</a></div>
+            <div><i class="fas fa-envelope"></i> bethune_virtual@jlu.edu.cn</div>
+        </div>
+        <div class="version">版本 v2.0.7 | 数字虚拟纪念馆 · 持续更新</div>
+        <div style="margin-top:16px; text-align:center; border-top:1px solid #514436; padding-top:20px; font-size:0.75rem;">
+            💙 国际主义精神永存 · 全球校友共筑丰碑 · © 2025 数字虚拟纪念馆
+        </div>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('show')));
+    }
+    const sections = document.querySelectorAll('section[id]');
+    const navLinkItems = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const scrollPos = window.scrollY + 100;
+        sections.forEach(section => {
+            const top = section.offsetTop, height = section.clientHeight;
+            if (scrollPos >= top && scrollPos < top + height) current = section.getAttribute('id');
+        });
+        navLinkItems.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+        });
+    });
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    timelineItems.forEach(item => observer.observe(item));
+    timelineItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) item.classList.add('visible');
+    });
+</script>
+</body>
+</html>
